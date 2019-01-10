@@ -1,9 +1,48 @@
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message[1] }}</li>
-            {% endfor %}</ul>
-    {% endif %}
-{% endwith %}
+<!doctype html>
+{% extends "bootstrap/base.html" %}
+{% block header %}
+    <title>Hello from Flask</title>
+{% endblock %}
+{% block content %}
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="navbar-nav">
 
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Exemplos
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="#">Acidente de Trânsito - Procedente Pedido</a>
+                    <a class="dropdown-item" href="#">Acidente de Trânsito - Improcedente Pedido</a>
+                    <a class="dropdown-item" href="#">Dano Moral - Procedente Pedido</a>
+                    <a class="dropdown-item" href="#">Dano Moral - Improcedente Pedido</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sobre</a>
+            </li>
+
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Preditor de processos</h1>
+
+        <label for="assunto">Selecione o assunto da petição:</label>
+        <form action="" method="post" role="form">
+            <div class="radio">
+                <label><input type="radio" name="assunto"  value="transito">Acidente de Trânsito</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="assunto"  value="moral">Dano Moral</label>
+            </div>
+            <div class="form-group">
+                <label for="peticao">Digite aqui sua Petição:</label>
+                <textarea class="form-control" rows="10" id="peticao" name="peticao"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Prever
+            </button>
+        </form>
+    </div>
+{% endblock %}

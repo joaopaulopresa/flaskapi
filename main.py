@@ -2,11 +2,14 @@
 import pickle
 
 import nltk as nltk
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,render_template
 from google.cloud import storage
-
+from flask_bootstrap import Bootstrap
+from wtforms import Form,SelectField
 from functions import my_prepro as my_preprocessor
 
+def PredictForm(Form):
+    assunto = SelectField('Assunto', choices=[('moral', 'Dano Moral'), ('transito', 'Acidente de Transito')])
 
 def transform(x):
     # ter o metodo qeu recebe o texto e aplica o metodo remove_tokenize_remove_stopword_stemming
@@ -53,11 +56,19 @@ def prob(x, assunto):
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+Bootstrap(app)
 
 
-@app.route('/')
+@app.route('/',methods=['GET','POST'])
 def index():
-    return "Hello World!"
+    form = PredictForm(request.form)
+    if request.method == 'POST':
+        print(request.form['peticao'])
+        print(request.form['assunto'])
+
+    with app.app_context():
+        return render_template('index.html', form=form)
 
 @app.route('/predict', methods=['POST'])
 def predict():
