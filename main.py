@@ -5,11 +5,14 @@ import nltk as nltk
 from flask import Flask, request, jsonify,render_template
 from google.cloud import storage
 from flask_bootstrap import Bootstrap
-from wtforms import Form,SelectField
+from wtforms import Form, SelectField, TextAreaField,  validators
+
 from functions import my_prepro as my_preprocessor
 
-def PredictForm(Form):
-    assunto = SelectField('Assunto', choices=[('moral', 'Dano Moral'), ('transito', 'Acidente de Transito')])
+
+class PredictForm(Form):
+    assunto = SelectField('Assunto',[validators.required()], choices=[('moral', 'Dano Moral'), ('transito', 'Acidente de Transito')])
+    peticao = TextAreaField('Peticao',[validators.required()], render_kw={'class': "form-control",'rows': 10},)
 
 def transform(x):
     # ter o metodo qeu recebe o texto e aplica o metodo remove_tokenize_remove_stopword_stemming

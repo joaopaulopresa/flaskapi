@@ -1,5 +1,6 @@
 <!doctype html>
 {% extends "bootstrap/base.html" %}
+{% from "_formhelpers.html" import render_field %}
 {% block header %}
     <title>Hello from Flask</title>
 {% endblock %}
@@ -28,8 +29,31 @@
     <div class="container">
         <h1>Preditor de processos</h1>
 
+        <form action="" method="post" role="form">
+            <div class="form-group">
+                <label for="assunto" ><h4>Assunto:</h4></label>
+
+                {{ form.assunto(class="form-control form-control-lg w-50" ,placeholder=".form-control-lg") }}
+            </div>
+
+            <div class="form-group">
+                <label for="peticao" ><h4>Petição:</h4></label>
+                {{ form.peticao(class="form-control", rows="10") }}
+            </div>
+            <button type="submit" class="btn btn-primary">
+                Prever
+            </button>
+        </form>
+    </div>
+{% endblock %}
+
+{#
+<div class="container">
+        <h1>Preditor de processos</h1>
+
         <label for="assunto">Selecione o assunto da petição:</label>
         <form action="" method="post" role="form">
+                {{ render_field(form.assunto) }}
             <div class="radio">
                 <label><input type="radio" name="assunto"  value="transito">Acidente de Trânsito</label>
             </div>
@@ -44,5 +68,4 @@
                 Prever
             </button>
         </form>
-    </div>
-{% endblock %}
+    </div>#}
